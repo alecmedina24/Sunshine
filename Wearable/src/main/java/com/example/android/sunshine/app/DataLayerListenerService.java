@@ -35,12 +35,7 @@ import java.util.concurrent.TimeUnit;
 public class DataLayerListenerService extends WearableListenerService {
 
     private static final String TAG = "DataLayerListenerServic";
-
-//    private static final String START_ACTIVITY_PATH = "/start-activity";
-//    private static final String DATA_ITEM_RECEIVED_PATH = "/data-item-received";
     public static final String COUNT_PATH = "/count";
-//    public static final String IMAGE_PATH = "/image";
-//    public static final String IMAGE_KEY = "photo";
     GoogleApiClient mGoogleApiClient;
 
     @Override
@@ -71,46 +66,11 @@ public class DataLayerListenerService extends WearableListenerService {
             String path = uri.getPath();
             if (COUNT_PATH.equals(path)) {
                 DataMapItem dataMapItem = DataMapItem.fromDataItem(event.getDataItem());
-                int date = dataMapItem.getDataMap().getInt("count");
+                String weather = dataMapItem.getDataMap().getString("count");
+                String date = dataMapItem.getDataMap().getString("date");
+                Log.v(TAG, "data = " + weather);
                 Log.v(TAG, "data = " + date);
-                // Get the node id of the node that created the data item from the host portion of
-                // the uri.
-//                String nodeId = uri.getHost();
-                // Set the data of the message to be the bytes of the Uri.
-//                byte[] payload = uri.toString().getBytes();
-
-                // Send the rpc
-//                Wearable.MessageApi.sendMessage(mGoogleApiClient, nodeId, DATA_ITEM_RECEIVED_PATH,
-//                        payload);
             }
         }
     }
-
-//    @Override
-//    public void onMessageReceived(MessageEvent messageEvent) {
-//        LOGD(TAG, "onMessageReceived: " + messageEvent);
-//
-//        // Check to see if the message is to start an activity
-//        if (messageEvent.getPath().equals(START_ACTIVITY_PATH)) {
-//            Intent startIntent = new Intent(this, MainActivity.class);
-//            startIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//            startActivity(startIntent);
-//        }
-//    }
-//
-//    @Override
-//    public void onPeerConnected(Node peer) {
-//        LOGD(TAG, "onPeerConnected: " + peer);
-//    }
-//
-//    @Override
-//    public void onPeerDisconnected(Node peer) {
-//        LOGD(TAG, "onPeerDisconnected: " + peer);
-//    }
-//
-//    public static void LOGD(final String tag, String message) {
-//        if (Log.isLoggable(tag, Log.DEBUG)) {
-//            Log.d(tag, message);
-//        }
-//    }
 }
