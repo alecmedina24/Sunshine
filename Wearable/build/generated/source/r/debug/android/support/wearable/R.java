@@ -98,33 +98,33 @@ public final class R {
 	}
 	public static final class dimen {
 		public static final int card_content_padding_rect_top = 0x7f0b0000;
-		public static final int circular_button_elevation = 0x7f0b0001;
-		public static final int circular_button_elevation_pressed = 0x7f0b0002;
-		public static final int close_button_diameter = 0x7f0b0003;
-		public static final int diag_button_bottom_padding = 0x7f0b0004;
-		public static final int diag_button_bottom_padding_round = 0x7f0b0005;
-		public static final int diag_button_side_padding_right_round = 0x7f0b0006;
-		public static final int diag_content_bottom_padding = 0x7f0b0007;
-		public static final int diag_content_side_padding = 0x7f0b0008;
-		public static final int diag_content_side_padding_round = 0x7f0b0009;
-		public static final int diag_content_top_padding = 0x7f0b000a;
-		public static final int diag_content_top_padding_round = 0x7f0b000b;
-		public static final int diag_floating_height = 0x7f0b000c;
-		public static final int diag_shade_height_rect = 0x7f0b000d;
-		public static final int diag_shade_height_round = 0x7f0b000e;
-		public static final int dismiss_padding = 0x7f0b000f;
+		public static final int circular_button_elevation = 0x7f0b0002;
+		public static final int circular_button_elevation_pressed = 0x7f0b0003;
+		public static final int close_button_diameter = 0x7f0b0004;
+		public static final int diag_button_bottom_padding = 0x7f0b0005;
+		public static final int diag_button_bottom_padding_round = 0x7f0b0006;
+		public static final int diag_button_side_padding_right_round = 0x7f0b0007;
+		public static final int diag_content_bottom_padding = 0x7f0b0008;
+		public static final int diag_content_side_padding = 0x7f0b0009;
+		public static final int diag_content_side_padding_round = 0x7f0b000a;
+		public static final int diag_content_top_padding = 0x7f0b000b;
+		public static final int diag_content_top_padding_round = 0x7f0b000c;
+		public static final int diag_floating_height = 0x7f0b000d;
+		public static final int diag_shade_height_rect = 0x7f0b000e;
+		public static final int diag_shade_height_round = 0x7f0b000f;
+		public static final int dismiss_padding = 0x7f0b0010;
 	}
 	public static final class drawable {
-		public static final int card_background = 0x7f020000;
-		public static final int card_frame = 0x7f020001;
-		public static final int card_frame_pressed = 0x7f020002;
-		public static final int close_button = 0x7f020003;
-		public static final int generic_confirmation = 0x7f02002e;
-		public static final int generic_confirmation_animation = 0x7f02002f;
-		public static final int ic_full_cancel = 0x7f020030;
-		public static final int ic_full_sad = 0x7f020031;
-		public static final int open_on_phone = 0x7f020033;
-		public static final int open_on_phone_animation = 0x7f020034;
+		public static final int card_background = 0x7f020001;
+		public static final int card_frame = 0x7f020002;
+		public static final int card_frame_pressed = 0x7f020003;
+		public static final int close_button = 0x7f020004;
+		public static final int generic_confirmation = 0x7f02002f;
+		public static final int generic_confirmation_animation = 0x7f020030;
+		public static final int ic_full_cancel = 0x7f020031;
+		public static final int ic_full_sad = 0x7f020032;
+		public static final int open_on_phone = 0x7f020034;
+		public static final int open_on_phone_animation = 0x7f020035;
 	}
 	public static final class id {
 		public static final int alertTitle = 0x7f0d001b;

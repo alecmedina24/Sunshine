@@ -39,16 +39,6 @@ MERGED from com.google.android.gms:play-services-basement:8.4.0:21:9
 		ADDED from AndroidManifest.xml:31:17
 	android:value
 		ADDED from AndroidManifest.xml:32:17
-service#com.example.android.sunshine.app.DataLayerListenerService
-ADDED from AndroidManifest.xml:34:9
-	android:name
-		ADDED from AndroidManifest.xml:35:17
-intent-filter#com.google.android.gms.wearable.BIND_LISTENER
-ADDED from AndroidManifest.xml:36:13
-action#com.google.android.gms.wearable.BIND_LISTENER
-ADDED from AndroidManifest.xml:37:17
-	android:name
-		ADDED from AndroidManifest.xml:37:25
 activity#com.example.android.sunshine.app.MainActivity
 ADDED from AndroidManifest.xml:41:9
 	android:label

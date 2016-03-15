@@ -18,65 +18,43 @@ package com.example.android.sunshine.app;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
+import android.widget.TextView;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
-import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
-import com.google.android.gms.wearable.DataApi;
-import com.google.android.gms.wearable.DataEventBuffer;
-import com.google.android.gms.wearable.Wearable;
+public class MainActivity extends Activity implements WearableDataHelper.DataChangedCallback {
 
-public class MainActivity extends Activity implements ConnectionCallbacks, DataApi.DataListener,
-        OnConnectionFailedListener {
-
-    private static final String TAG = "MainActivity";
-    private GoogleApiClient mGoogleApiClient;
+    private WearableDataHelper wearableDataHelper;
+    private TextView dateView;
+    private TextView highView;
+    private TextView lowView;
 
     @Override
     public void onCreate(Bundle b) {
         super.onCreate(b);
-        setContentView(R.layout.main_activity);
-
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addApi(Wearable.API)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .build();
+        setContentView(R.layout.watch_face_circular);
+        wearableDataHelper = new WearableDataHelper(this, this);
+        dateView = (TextView) findViewById(R.id.date);
+        highView = (TextView) findViewById(R.id.high_temp);
+        lowView = (TextView) findViewById(R.id.low_temp);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mGoogleApiClient.connect();
+        wearableDataHelper.connect();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Wearable.DataApi.removeListener(mGoogleApiClient, this);
-        mGoogleApiClient.disconnect();
+        wearableDataHelper.removeDataItemListener();
+        wearableDataHelper.disconnect();
     }
 
     @Override
-    public void onConnected(Bundle connectionHint) {
-        Log.v(TAG, "onConnected(): Successfully connected to Google API client");
-        Wearable.DataApi.addListener(mGoogleApiClient, this);
-    }
-
-    @Override
-    public void onConnectionSuspended(int cause) {
-        Log.v(TAG, "onConnectionSuspended(): Connection to Google API client was suspended");
-    }
-
-    @Override
-    public void onConnectionFailed(ConnectionResult result) {
-        Log.e(TAG, "onConnectionFailed(): Failed to connect, with result: " + result);
-    }
-
-    @Override
-    public void onDataChanged(DataEventBuffer dataEvents) {
-        Log.v(TAG, "onDataChanged(): " + dataEvents);
+    public void updateWeather(double high, double low) {
+        int highTemp = (int) high;
+        int lowTemp = (int) low;
+        highView.setText(String.valueOf(highTemp) + "\u00b0");
+        lowView.setText(String.valueOf(lowTemp) + "\u00b0");
     }
 }
