@@ -17,17 +17,23 @@
 package com.example.android.sunshine.app;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.wearable.Asset;
 import com.google.android.gms.wearable.DataApi;
 import com.google.android.gms.wearable.DataEvent;
 import com.google.android.gms.wearable.DataEventBuffer;
 import com.google.android.gms.wearable.DataMapItem;
 import com.google.android.gms.wearable.Wearable;
+
+import java.io.InputStream;
 
 /**
  * Listens to DataItems and Messages from the local node.
@@ -41,6 +47,7 @@ public class WearableDataHelper implements GoogleApiClient.ConnectionCallbacks, 
     private double high;
     private double low;
     private DataChangedCallback dataChangedCallback;
+//    private InputStream assetInputStream;
 
     public WearableDataHelper(Context context, DataChangedCallback dataChangedCallback) {
         this.dataChangedCallback = dataChangedCallback;
@@ -53,6 +60,7 @@ public class WearableDataHelper implements GoogleApiClient.ConnectionCallbacks, 
 
     public interface DataChangedCallback {
         void updateWeather(double high, double low);
+        void updateImage(Bitmap weatherImage);
     }
 
     public void connect() {
@@ -87,18 +95,27 @@ public class WearableDataHelper implements GoogleApiClient.ConnectionCallbacks, 
         Log.e(TAG, "onConnectionFailed(): Failed to connect, with result: " + result);
     }
 
+    public void loadBitmapFromAsset(Asset asset) {
+        if (asset == null) {
+            throw new IllegalArgumentException("Asset must be non-null");
+        }
+
+        // convert asset into a file descriptor, upon result of Fd, decode the inputStream
+        // and callback to watchFace to set image
+        Wearable.DataApi.getFdForAsset(
+                mGoogleApiClient, asset).setResultCallback(new ResultCallback<DataApi.GetFdForAssetResult>() {
+            @Override
+            public void onResult(DataApi.GetFdForAssetResult getFdForAssetResult) {
+                InputStream assetInputStream = getFdForAssetResult.getInputStream();
+                Bitmap image = BitmapFactory.decodeStream(assetInputStream);
+                dataChangedCallback.updateImage(image);
+            }
+        });
+    }
+
     @Override
     public void onDataChanged(DataEventBuffer dataEvents) {
         Log.v(TAG, "onDataChanged: " + dataEvents);
-//        if (!mGoogleApiClient.isConnected() || !mGoogleApiClient.isConnecting()) {
-//            ConnectionResult connectionResult = mGoogleApiClient
-//                    .blockingConnect(30, TimeUnit.SECONDS);
-//            if (!connectionResult.isSuccess()) {
-//                Log.e(TAG, "DataLayerListenerService failed to connect to GoogleApiClient, "
-//                        + "error code: " + connectionResult.getErrorCode());
-//                return;
-//            }
-//        }
 
         // Loop through the events and send a message back to the node that created the data item.
         for (DataEvent event : dataEvents) {
@@ -108,6 +125,8 @@ public class WearableDataHelper implements GoogleApiClient.ConnectionCallbacks, 
                 DataMapItem dataMapItem = DataMapItem.fromDataItem(event.getDataItem());
                 high = dataMapItem.getDataMap().getDouble("high");
                 low = dataMapItem.getDataMap().getDouble("low");
+                Asset asset = dataMapItem.getDataMap().getAsset("weatherImage");
+                loadBitmapFromAsset(asset);
                 dataChangedCallback.updateWeather(high, low);
                 Log.v(TAG, "data = " + high);
                 Log.v(TAG, "data = " + low);

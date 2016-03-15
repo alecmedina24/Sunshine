@@ -19,11 +19,6 @@ package com.example.android.sunshine.app;
 import android.app.Activity;
 import android.os.Bundle;
 
-/**
- * Receives its own events using a listener API designed for foreground activities. Updates a data
- * item every second while it is open. Also allows user to take a photo and send that as an asset
- * to the paired wearable.
- */
 public class MainActivity extends Activity {
 
     private AppDataHelper dataHelper;

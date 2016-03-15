@@ -17,7 +17,9 @@
 package com.example.android.sunshine.app;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MainActivity extends Activity implements WearableDataHelper.DataChangedCallback {
@@ -26,6 +28,7 @@ public class MainActivity extends Activity implements WearableDataHelper.DataCha
     private TextView dateView;
     private TextView highView;
     private TextView lowView;
+    private ImageView weatherImageHolder;
 
     @Override
     public void onCreate(Bundle b) {
@@ -35,6 +38,7 @@ public class MainActivity extends Activity implements WearableDataHelper.DataCha
         dateView = (TextView) findViewById(R.id.date);
         highView = (TextView) findViewById(R.id.high_temp);
         lowView = (TextView) findViewById(R.id.low_temp);
+        weatherImageHolder = (ImageView) findViewById(R.id.weather_image);
     }
 
     @Override
@@ -52,9 +56,12 @@ public class MainActivity extends Activity implements WearableDataHelper.DataCha
 
     @Override
     public void updateWeather(double high, double low) {
-        int highTemp = (int) high;
-        int lowTemp = (int) low;
-        highView.setText(String.valueOf(highTemp) + "\u00b0");
-        lowView.setText(String.valueOf(lowTemp) + "\u00b0");
+        highView.setText(String.valueOf((int) high) + "\u00b0");
+        lowView.setText(String.valueOf((int) low) + "\u00b0");
+    }
+
+    @Override
+    public void updateImage(Bitmap weatherImage) {
+        weatherImageHolder.setImageBitmap(weatherImage);
     }
 }

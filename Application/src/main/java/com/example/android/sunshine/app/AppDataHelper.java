@@ -3,18 +3,23 @@ package com.example.android.sunshine.app;
 import android.app.Activity;
 import android.content.Context;
 import android.content.IntentSender;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.wearable.Asset;
 import com.google.android.gms.wearable.DataApi;
 import com.google.android.gms.wearable.DataEventBuffer;
 import com.google.android.gms.wearable.PutDataMapRequest;
 import com.google.android.gms.wearable.PutDataRequest;
 import com.google.android.gms.wearable.Wearable;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -60,6 +65,24 @@ public class AppDataHelper implements DataApi.DataListener, GoogleApiClient.Conn
                 new DataItemGenerator(), 1, 5, TimeUnit.SECONDS);
     }
 
+    private static Asset createAssetFromBitmap(Bitmap bitmap) {
+        ByteArrayOutputStream byteStream = null;
+        try {
+            byteStream = new ByteArrayOutputStream();
+            Bitmap resizedBitmap = bitmap.createScaledBitmap(bitmap, 120, 120, true);
+            resizedBitmap.compress(Bitmap.CompressFormat.PNG, 100, byteStream);
+            return Asset.createFromBytes(byteStream.toByteArray());
+        } finally {
+            if (null != byteStream) {
+                try {
+                    byteStream.close();
+                } catch (IOException e) {
+                    // ignore
+                }
+            }
+        }
+    }
+
     private class DataItemGenerator implements Runnable {
 
         private int count;
@@ -70,6 +93,11 @@ public class AppDataHelper implements DataApi.DataListener, GoogleApiClient.Conn
             putDataMapRequest.getDataMap().putInt("number", count++);
             putDataMapRequest.getDataMap().putDouble("high", 25);
             putDataMapRequest.getDataMap().putDouble("low", 16);
+
+            Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.art_clear);
+            Asset asset = createAssetFromBitmap(bitmap);
+            putDataMapRequest.getDataMap().putAsset("weatherImage", asset);
+
             putDataMapRequest.setUrgent();
             PutDataRequest request = putDataMapRequest.asPutDataRequest();
             request.setUrgent();

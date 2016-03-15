@@ -708,6 +708,7 @@ containing a value of this type.
         public static final int main_activity=0x7f030006;
         public static final int watch_card_content=0x7f030007;
         public static final int watch_face_circular=0x7f030008;
+        public static final int watch_face_square=0x7f030009;
     }
     public static final class string {
         public static final int app_name=0x7f07001e;

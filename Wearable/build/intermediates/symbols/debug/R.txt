@@ -247,6 +247,7 @@ int layout error_layout 0x7f030005
 int layout main_activity 0x7f030006
 int layout watch_card_content 0x7f030007
 int layout watch_face_circular 0x7f030008
+int layout watch_face_square 0x7f030009
 int string app_name 0x7f07001e
 int string auth_google_play_services_client_facebook_display_name 0x7f07001f
 int string auth_google_play_services_client_google_display_name 0x7f070020
