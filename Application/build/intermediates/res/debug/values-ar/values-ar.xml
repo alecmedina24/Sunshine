@@ -1,5 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- From: file:/Users/alecmedina/Downloads/sunshine/Application/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.0/res/values-ar/values-ar.xml -->
+    <eat-comment/>
+    <string msgid="4600421777120114993" name="abc_action_bar_home_description">"التنقل إلى الشاشة الرئيسية"</string>
+    <string msgid="1594238315039666878" name="abc_action_bar_up_description">"التنقل إلى أعلى"</string>
+    <string msgid="3588849162933574182" name="abc_action_menu_overflow_description">"خيارات إضافية"</string>
+    <string msgid="4076576682505996667" name="abc_action_mode_done">"تم"</string>
+    <string msgid="7468859129482906941" name="abc_activity_chooser_view_see_all">"عرض الكل"</string>
+    <string msgid="2031811694353399454" name="abc_activitychooserview_choose_application">"اختيار تطبيق"</string>
+    <string msgid="3691816814315814921" name="abc_searchview_description_clear">"محو طلب البحث"</string>
+    <string msgid="2550479030709304392" name="abc_searchview_description_query">"طلب البحث"</string>
+    <string msgid="8264924765203268293" name="abc_searchview_description_search">"بحث"</string>
+    <string msgid="8928215447528550784" name="abc_searchview_description_submit">"إرسال طلب البحث"</string>
+    <string msgid="893419373245838918" name="abc_searchview_description_voice">"البحث الصوتي"</string>
+    <string msgid="3421042268587513524" name="abc_shareactionprovider_share_with">"مشاركة مع"</string>
+    <string msgid="7165123711973476752" name="abc_shareactionprovider_share_with_application">"‏مشاركة مع %s"</string>
     <!-- From: file:/Users/alecmedina/Downloads/sunshine/Application/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/8.4.0/res/values-ar/base_strings.xml -->
     <eat-comment/>
     <string msgid="2785372108150982144" name="common_google_play_services_api_unavailable_text">"‏يتطلب <ns1:g id="APP_NAME">%1$s</ns1:g> خدمة أو أكثر من خدمات Google Play والتي لا تتوفر حاليًا. يُرجى الاتصال بمطوّر البرامج للحصول على المساعدة."</string>
@@ -35,4 +50,8 @@
     <string msgid="311697239335516384" name="common_open_on_phone">"فتح على الهاتف"</string>
     <string msgid="3156914698180786012" name="common_signin_button_text">"تسجل الدخول"</string>
     <string msgid="1483290677806110088" name="common_signin_button_text_long">"‏تسجيل الدخول عبر Google"</string>
+    <!-- From: file:/Users/alecmedina/Downloads/sunshine/Application/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/8.4.0/res/values-ar/location_strings.xml -->
+    <eat-comment/>
+    <string msgid="2132213647576279742" name="place_autocomplete_clear_button">"مسح البحث"</string>
+    <string msgid="4600782048316473865" name="place_autocomplete_search_hint">"البحث"</string>
 </resources>

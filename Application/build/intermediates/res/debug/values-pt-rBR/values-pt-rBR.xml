@@ -35,4 +35,8 @@
     <string msgid="311697239335516384" name="common_open_on_phone">"Abrir no smartphone"</string>
     <string msgid="3156914698180786012" name="common_signin_button_text">"Fazer login"</string>
     <string msgid="1483290677806110088" name="common_signin_button_text_long">"Fazer login com o Google"</string>
+    <!-- From: file:/Users/alecmedina/Downloads/sunshine/Application/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/8.4.0/res/values-pt-rBR/location_strings.xml -->
+    <eat-comment/>
+    <string msgid="2132213647576279742" name="place_autocomplete_clear_button">"Limpar pesquisa"</string>
+    <string msgid="4600782048316473865" name="place_autocomplete_search_hint">"Pesquisar"</string>
 </resources>
