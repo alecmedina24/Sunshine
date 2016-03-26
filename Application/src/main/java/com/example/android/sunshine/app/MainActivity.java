@@ -34,6 +34,7 @@ import android.view.View;
 import com.example.android.sunshine.app.data.WeatherContract;
 import com.example.android.sunshine.app.gcm.RegistrationIntentService;
 import com.example.android.sunshine.app.sync.SunshineSyncAdapter;
+import com.facebook.stetho.Stetho;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 
@@ -46,19 +47,21 @@ public class MainActivity extends AppCompatActivity implements ForecastFragment.
 
     private boolean mTwoPane;
     private String mLocation;
-    private AppDataHelper dataHelper;
+    private AppDataHelper appDataHelper;
 
     @Override
     protected void onStart() {
         super.onStart();
-        dataHelper.connect();
+        appDataHelper.connect();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        dataHelper = new AppDataHelper(this);
+        Stetho.initializeWithDefaults(this);
+
+        appDataHelper = new AppDataHelper(this);
 
         mLocation = Utility.getPreferredLocation(this);
         Uri contentUri = getIntent() != null ? getIntent().getData() : null;
@@ -147,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements ForecastFragment.
     protected void onResume() {
         super.onResume();
 
-        dataHelper.createDataItem();
+        appDataHelper.createDataItem();
 
         String location = Utility.getPreferredLocation( this );
         // update the location in our second pane using the fragment manager
@@ -214,7 +217,7 @@ public class MainActivity extends AppCompatActivity implements ForecastFragment.
     @Override
     protected void onPause() {
         super.onPause();
-        dataHelper.disconnect();
+        appDataHelper.disconnect();
     }
 }
 

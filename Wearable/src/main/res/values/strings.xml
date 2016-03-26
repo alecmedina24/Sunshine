@@ -21,4 +21,5 @@
     <string name="capabilities_1_and_2_notification">Capabilities 1 and 2</string>
     <string name="no_device">No device provides the requested capabilities</string>
     <string name="connected_nodes">Nodes: %1$s</string>
+    <string name="my_digital_name">My Sunshine Digital</string>
 </resources>

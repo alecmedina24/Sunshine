@@ -298,6 +298,16 @@ ADDED from AndroidManifest.xml:184:9
 		ADDED from AndroidManifest.xml:186:13
 	android:name
 		ADDED from AndroidManifest.xml:185:13
+service#com.example.android.sunshine.app.WearListenerService
+ADDED from AndroidManifest.xml:189:9
+	android:name
+		ADDED from AndroidManifest.xml:190:13
+intent-filter#com.google.android.gms.wearable.BIND_LISTENER
+ADDED from AndroidManifest.xml:191:13
+action#com.google.android.gms.wearable.BIND_LISTENER
+ADDED from AndroidManifest.xml:192:17
+	android:name
+		ADDED from AndroidManifest.xml:192:25
 uses-sdk
 INJECTED from AndroidManifest.xml:0:0 reason: use-sdk injection requested
 MERGED from com.android.support:support-v4:23.1.1:20:5

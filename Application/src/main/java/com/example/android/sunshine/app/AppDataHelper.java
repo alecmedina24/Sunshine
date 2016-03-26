@@ -28,7 +28,8 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by alecmedina on 3/14/16.
  */
-public class AppDataHelper implements DataApi.DataListener, GoogleApiClient.ConnectionCallbacks,
+public class AppDataHelper implements DataApi.DataListener,
+        GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener {
 
     private static final String TAG = AppDataHelper.class.getSimpleName();
@@ -41,6 +42,7 @@ public class AppDataHelper implements DataApi.DataListener, GoogleApiClient.Conn
     private ScheduledFuture<?> mDataItemGeneratorFuture;
     private static final int REQUEST_RESOLVE_ERROR = 1000;
     private boolean mResolvingError = false;
+
 
     public AppDataHelper(Context context) {
         this.context = context;
@@ -113,7 +115,8 @@ public class AppDataHelper implements DataApi.DataListener, GoogleApiClient.Conn
                             if (!dataItemResult.getStatus().isSuccess()) {
                                 Log.e(TAG, "ERROR: failed to putDataItem, status code: "
                                         + dataItemResult.getStatus().getStatusCode());
-                            }
+
+      }
                         }
                     });
         }

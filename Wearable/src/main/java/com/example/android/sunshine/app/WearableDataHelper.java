@@ -31,6 +31,9 @@ import com.google.android.gms.wearable.DataApi;
 import com.google.android.gms.wearable.DataEvent;
 import com.google.android.gms.wearable.DataEventBuffer;
 import com.google.android.gms.wearable.DataMapItem;
+import com.google.android.gms.wearable.MessageApi;
+import com.google.android.gms.wearable.Node;
+import com.google.android.gms.wearable.NodeApi;
 import com.google.android.gms.wearable.Wearable;
 
 import java.io.InputStream;
@@ -83,6 +86,7 @@ public class WearableDataHelper implements GoogleApiClient.ConnectionCallbacks, 
     public void onConnected(Bundle connectionHint) {
         Log.v(TAG, "onConnected(): Successfully connected to Google API client");
         addDataItemListener();
+        createMessage();
     }
 
     @Override
@@ -132,5 +136,28 @@ public class WearableDataHelper implements GoogleApiClient.ConnectionCallbacks, 
                 Log.v(TAG, "data = " + low);
             }
         }
+    }
+
+    public void createMessage() {
+//        if (mGoogleApiClient.isConnected()) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    NodeApi.GetConnectedNodesResult nodes = Wearable.NodeApi.
+                            getConnectedNodes(mGoogleApiClient).await();
+                    for (Node node : nodes.getNodes()) {
+                        MessageApi.SendMessageResult result = Wearable.MessageApi.
+                                sendMessage(mGoogleApiClient, node.getId(), COUNT_PATH, "Hello World".
+                                                getBytes()).await();
+                        if(!result.getStatus().isSuccess()){
+                            Log.e("test", "error");
+                        } else {
+                            Log.i("test", "success!! sent to: " + node.getDisplayName());
+                        }
+                    }
+                    Log.v("Message", nodes.toString());
+                }
+            }).start();
+//        }
     }
 }

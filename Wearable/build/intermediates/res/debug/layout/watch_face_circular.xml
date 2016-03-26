@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="3:45"
+        tools:text="3:45"
         android:paddingTop="@dimen/time_top_padding"
         android:textSize="@dimen/time_text_size"
         android:textColor="@color/white" />
@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Mar 24, 1994"
+        tools:text="Mar 24, 1994"
         android:textAllCaps="true"
         android:paddingBottom="@dimen/spacer_padding"
         android:textColor="@color/white"/>
