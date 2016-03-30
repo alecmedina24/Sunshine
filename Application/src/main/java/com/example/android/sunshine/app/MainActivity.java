@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements ForecastFragment.
     @Override
     protected void onStart() {
         super.onStart();
-        appDataHelper.connect();
+//        appDataHelper.connect();
     }
 
     @Override
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements ForecastFragment.
 
         Stetho.initializeWithDefaults(this);
 
-        appDataHelper = new AppDataHelper(this);
+//        appDataHelper = new AppDataHelper(this);
 
         mLocation = Utility.getPreferredLocation(this);
         Uri contentUri = getIntent() != null ? getIntent().getData() : null;
@@ -150,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements ForecastFragment.
     protected void onResume() {
         super.onResume();
 
-        appDataHelper.createDataItem();
+//        appDataHelper.createDataItem();
 
         String location = Utility.getPreferredLocation( this );
         // update the location in our second pane using the fragment manager
@@ -217,7 +217,7 @@ public class MainActivity extends AppCompatActivity implements ForecastFragment.
     @Override
     protected void onPause() {
         super.onPause();
-        appDataHelper.disconnect();
+//        appDataHelper.disconnect();
     }
 }
 

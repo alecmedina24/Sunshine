@@ -22,4 +22,10 @@
     <string name="no_device">No device provides the requested capabilities</string>
     <string name="connected_nodes">Nodes: %1$s</string>
     <string name="my_digital_name">My Sunshine Digital</string>
+
+    <!-- Strings related to last sync to wearable -->
+    <string name="pref_last_wear_sync">last_sync</string>
+
+    <string name="format_temperature"><xliff:g id="temp">%1.0f</xliff:g>\u00B0</string>
+
 </resources>

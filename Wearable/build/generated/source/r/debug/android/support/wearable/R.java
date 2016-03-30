@@ -72,7 +72,7 @@ public final class R {
 		public static final int black_86p = 0x7f0b0004;
 		public static final int blue = 0x7f0b0005;
 		public static final int card_default_background = 0x7f0b0006;
-		public static final int circular_button = 0x7f0b002f;
+		public static final int circular_button = 0x7f0b0030;
 		public static final int circular_button_disabled = 0x7f0b0007;
 		public static final int circular_button_normal = 0x7f0b0008;
 		public static final int circular_button_pressed = 0x7f0b0009;
@@ -94,7 +94,7 @@ public final class R {
 		public static final int red = 0x7f0b002b;
 		public static final int secondary_text_light = 0x7f0b002c;
 		public static final int semitransparent_grey = 0x7f0b002d;
-		public static final int white = 0x7f0b002e;
+		public static final int white = 0x7f0b002f;
 	}
 	public static final class dimen {
 		public static final int card_content_padding_rect_top = 0x7f0c0000;

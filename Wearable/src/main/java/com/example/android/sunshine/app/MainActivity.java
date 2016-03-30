@@ -41,6 +41,7 @@ import android.view.View;
 import android.view.WindowInsets;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
@@ -90,6 +91,7 @@ public class MainActivity extends CanvasWatchFaceService {
     public class Engine extends CanvasWatchFaceService.Engine implements WearableDataHelper.DataChangedCallback {
 
         final Handler mUpdateTimeHandler = new EngineHandler(this);
+        private static final long DAY_IN_MILLIS = 1000 * 60 * 60 * 24;
         boolean mRegisteredTimeZoneReceiver = false;
         Paint mBackgroundPaint;
         Paint mTextPaint;
@@ -111,6 +113,7 @@ public class MainActivity extends CanvasWatchFaceService {
         private TextView mLowView;
         private TextView mTimeView;
         private ImageView mWeatherImageHolder;
+        private LinearLayout mBackground;
         private View mLayout;
         private int mHeight;
         private int mWidth;
@@ -126,8 +129,8 @@ public class MainActivity extends CanvasWatchFaceService {
         public void onCreate(SurfaceHolder holder) {
             super.onCreate(holder);
 
-            wearableDataHelper = new WearableDataHelper(getApplicationContext(), this);
-            wearableDataHelper.connect();
+//            wearableDataHelper = new WearableDataHelper(getApplicationContext(), this);
+//            wearableDataHelper.connect();
 
             setWatchFaceStyle(new WatchFaceStyle.Builder(MainActivity.this)
                     .setCardPeekMode(WatchFaceStyle.PEEK_MODE_VARIABLE)
@@ -145,7 +148,7 @@ public class MainActivity extends CanvasWatchFaceService {
 
             mWidth = View.MeasureSpec.makeMeasureSpec(displaySize.x,
                     View.MeasureSpec.EXACTLY);
-            mHeight= View.MeasureSpec.makeMeasureSpec(displaySize.y,
+            mHeight = View.MeasureSpec.makeMeasureSpec(displaySize.y,
                     View.MeasureSpec.EXACTLY);
 
             mTimeView = (TextView) mLayout.findViewById(R.id.time);
@@ -153,6 +156,7 @@ public class MainActivity extends CanvasWatchFaceService {
             mHighView = (TextView) mLayout.findViewById(R.id.high_temp);
             mLowView = (TextView) mLayout.findViewById(R.id.low_temp);
             mWeatherImageHolder = (ImageView) mLayout.findViewById(R.id.weather_image);
+            mBackground = (LinearLayout) mLayout.findViewById(R.id.background);
 
 //            mYOffset = resources.getDimension(R.dimen.digital_y_offset);
             mBackgroundPaint = new Paint();
@@ -162,11 +166,26 @@ public class MainActivity extends CanvasWatchFaceService {
             mTextPaint = createTextPaint(resources.getColor(R.color.digital_text));
 
             mTime = new Time();
+
+//            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+//            String lastSyncKey = resources.getString(R.string.pref_last_wear_sync);
+//            long lastSync = prefs.getLong(lastSyncKey, 0);
+//            Log.v("Wearable", "last sync = " + lastSync);
+
+//            wearableDataHelper.createSyncMessage();
+            Intent intent = new Intent(getApplicationContext(), WearableSyncService.class);
+            intent.setAction(Intent.ACTION_SYNC);
+            startService(intent);
         }
 
         @Override
         public void onDestroy() {
             mUpdateTimeHandler.removeMessages(MSG_UPDATE_TIME);
+            wearableDataHelper.removeDataItemListener();
+            wearableDataHelper.disconnect();
+//            Intent intent = new Intent(getApplicationContext(), WearableSyncService.class);
+//            intent.setAction(Intent.ACTION_SYNC);
+//            stopService(intent);
             super.onDestroy();
         }
 
@@ -212,7 +231,6 @@ public class MainActivity extends CanvasWatchFaceService {
             }
             mRegisteredTimeZoneReceiver = false;
             MainActivity.this.unregisterReceiver(mTimeZoneReceiver);
-//            wearableDataHelper.removeDataItemListener();
 //            wearableDataHelper.disconnect();
         }
 
@@ -221,8 +239,8 @@ public class MainActivity extends CanvasWatchFaceService {
             super.onApplyWindowInsets(insets);
 
             // Load resources that have alternate values for round watches.
-            Resources resources = MainActivity.this.getResources();
-            boolean isRound = insets.isRound();
+//            Resources resources = MainActivity.this.getResources();
+//            boolean isRound = insets.isRound();
 //            mXOffset = resources.getDimension(isRound
 //                    ? R.dimen.digital_x_offset_round : R.dimen.digital_x_offset);
 //            float textSize = resources.getDimension(isRound
@@ -262,12 +280,17 @@ public class MainActivity extends CanvasWatchFaceService {
         @Override
         public void onDraw(Canvas canvas, Rect bounds) {
             // Draw the background.
-//            if (isInAmbientMode()) {
-//                canvas.drawColor(Color.BLACK);
-//                mHighView.setVisibility(View.INVISIBLE);
-//                mLowView.setVisibility(View.INVISIBLE);
-//                mWeatherImageHolder.setVisibility(View.INVISIBLE);
-//            }
+            if (isInAmbientMode()) {
+                mBackground.setBackgroundColor(Color.BLACK);
+                mHighView.setVisibility(View.INVISIBLE);
+                mLowView.setVisibility(View.INVISIBLE);
+                mWeatherImageHolder.setVisibility(View.INVISIBLE);
+            } else {
+                mBackground.setBackgroundColor(getResources().getColor(R.color.watch_face_background));
+                mHighView.setVisibility(View.VISIBLE);
+                mLowView.setVisibility(View.VISIBLE);
+                mWeatherImageHolder.setVisibility(View.VISIBLE);
+            }
 
             mLayout.measure(mWidth, mHeight);
             mLayout.layout(0, 0, mLayout.getMeasuredWidth(),
@@ -276,7 +299,6 @@ public class MainActivity extends CanvasWatchFaceService {
             canvas.drawColor(Color.BLACK);
             mLayout.draw(canvas);
 
-            // Draw H:MM in ambient mode or H:MM:SS in interactive mode.
             Long time = System.currentTimeMillis();
             String text = String.format("%tk:%tM", time, time);
             mTimeView.setText(text);
@@ -318,8 +340,8 @@ public class MainActivity extends CanvasWatchFaceService {
 
         @Override
         public void updateWeather(double high, double low) {
-            mHighView.setText(String.valueOf((int) high) + "\u00b0");
-            mLowView.setText(String.valueOf((int) low) + "\u00b0");
+            mHighView.setText(String.format(getResources().getString(R.string.format_temperature), high));
+            mLowView.setText(String.format(getResources().getString(R.string.format_temperature), low));
         }
 
         @Override

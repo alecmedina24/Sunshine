@@ -510,27 +510,27 @@ containing a value of this type.
         public static final int black_86p=0x7f0b0004;
         public static final int blue=0x7f0b0005;
         public static final int card_default_background=0x7f0b0006;
-        public static final int circular_button=0x7f0b002f;
+        public static final int circular_button=0x7f0b0030;
         public static final int circular_button_disabled=0x7f0b0007;
         public static final int circular_button_normal=0x7f0b0008;
         public static final int circular_button_pressed=0x7f0b0009;
         public static final int common_action_bar_splitter=0x7f0b000a;
-        public static final int common_google_signin_btn_text_dark=0x7f0b0030;
+        public static final int common_google_signin_btn_text_dark=0x7f0b0031;
         public static final int common_google_signin_btn_text_dark_default=0x7f0b000b;
         public static final int common_google_signin_btn_text_dark_disabled=0x7f0b000c;
         public static final int common_google_signin_btn_text_dark_focused=0x7f0b000d;
         public static final int common_google_signin_btn_text_dark_pressed=0x7f0b000e;
-        public static final int common_google_signin_btn_text_light=0x7f0b0031;
+        public static final int common_google_signin_btn_text_light=0x7f0b0032;
         public static final int common_google_signin_btn_text_light_default=0x7f0b000f;
         public static final int common_google_signin_btn_text_light_disabled=0x7f0b0010;
         public static final int common_google_signin_btn_text_light_focused=0x7f0b0011;
         public static final int common_google_signin_btn_text_light_pressed=0x7f0b0012;
-        public static final int common_plus_signin_btn_text_dark=0x7f0b0032;
+        public static final int common_plus_signin_btn_text_dark=0x7f0b0033;
         public static final int common_plus_signin_btn_text_dark_default=0x7f0b0013;
         public static final int common_plus_signin_btn_text_dark_disabled=0x7f0b0014;
         public static final int common_plus_signin_btn_text_dark_focused=0x7f0b0015;
         public static final int common_plus_signin_btn_text_dark_pressed=0x7f0b0016;
-        public static final int common_plus_signin_btn_text_light=0x7f0b0033;
+        public static final int common_plus_signin_btn_text_light=0x7f0b0034;
         public static final int common_plus_signin_btn_text_light_default=0x7f0b0017;
         public static final int common_plus_signin_btn_text_light_disabled=0x7f0b0018;
         public static final int common_plus_signin_btn_text_light_focused=0x7f0b0019;
@@ -554,7 +554,8 @@ containing a value of this type.
         public static final int red=0x7f0b002b;
         public static final int secondary_text_light=0x7f0b002c;
         public static final int semitransparent_grey=0x7f0b002d;
-        public static final int white=0x7f0b002e;
+        public static final int watch_face_background=0x7f0b002e;
+        public static final int white=0x7f0b002f;
     }
     public static final class dimen {
         public static final int card_content_padding_rect_top=0x7f0c0000;
@@ -646,6 +647,7 @@ containing a value of this type.
         public static final int all=0x7f0e0000;
         public static final int animatedWrapperContainer=0x7f0e001a;
         public static final int auto=0x7f0e000d;
+        public static final int background=0x7f0e002a;
         public static final int bottom=0x7f0e0001;
         public static final int buttonPanel=0x7f0e001c;
         public static final int capabilities_1_and_2_btn=0x7f0e0022;
@@ -657,7 +659,7 @@ containing a value of this type.
         public static final int clip_vertical=0x7f0e0013;
         public static final int dark=0x7f0e000e;
         public static final int dataItem_list=0x7f0e001f;
-        public static final int date=0x7f0e002b;
+        public static final int date=0x7f0e002c;
         public static final int dismiss_overlay_button=0x7f0e0024;
         public static final int dismiss_overlay_explain=0x7f0e0023;
         public static final int end=0x7f0e0014;
@@ -665,13 +667,13 @@ containing a value of this type.
         public static final int fill_horizontal=0x7f0e0016;
         public static final int fill_vertical=0x7f0e0017;
         public static final int fit=0x7f0e0006;
-        public static final int high_temp=0x7f0e002d;
+        public static final int high_temp=0x7f0e002e;
         public static final int icon_only=0x7f0e000a;
         public static final int intro=0x7f0e0020;
         public static final int layout=0x7f0e001d;
         public static final int left=0x7f0e0002;
         public static final int light=0x7f0e000f;
-        public static final int low_temp=0x7f0e002e;
+        public static final int low_temp=0x7f0e002f;
         public static final int message=0x7f0e0025;
         public static final int none=0x7f0e0009;
         public static final int page_indicator=0x7f0e0027;
@@ -682,10 +684,10 @@ containing a value of this type.
         public static final int standard=0x7f0e000b;
         public static final int start=0x7f0e0018;
         public static final int text=0x7f0e0029;
-        public static final int time=0x7f0e002a;
+        public static final int time=0x7f0e002b;
         public static final int title=0x7f0e0028;
         public static final int top=0x7f0e0004;
-        public static final int weather_image=0x7f0e002c;
+        public static final int weather_image=0x7f0e002d;
         public static final int wide=0x7f0e000c;
     }
     public static final class integer {
@@ -748,9 +750,11 @@ containing a value of this type.
         public static final int common_signin_button_text_long=0x7f08001c;
         public static final int connected_nodes=0x7f080023;
         public static final int dismiss_overlay_button_label=0x7f08001d;
-        public static final int intro=0x7f080024;
-        public static final int my_digital_name=0x7f080025;
-        public static final int no_device=0x7f080026;
+        public static final int format_temperature=0x7f080024;
+        public static final int intro=0x7f080025;
+        public static final int my_digital_name=0x7f080026;
+        public static final int no_device=0x7f080027;
+        public static final int pref_last_wear_sync=0x7f080028;
     }
     public static final class style {
         public static final int CardText=0x7f090000;

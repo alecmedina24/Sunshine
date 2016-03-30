@@ -46,6 +46,7 @@ public class WearableDataHelper implements GoogleApiClient.ConnectionCallbacks, 
 
     private static final String TAG = "DataLayerListenerServic";
     private static final String COUNT_PATH = "/count";
+    private static final String SYNC = "true";
     private GoogleApiClient mGoogleApiClient;
     private double high;
     private double low;
@@ -74,10 +75,6 @@ public class WearableDataHelper implements GoogleApiClient.ConnectionCallbacks, 
         mGoogleApiClient.disconnect();
     }
 
-    public void addDataItemListener() {
-        Wearable.DataApi.addListener(mGoogleApiClient, this);
-    }
-
     public void removeDataItemListener() {
         Wearable.DataApi.removeListener(mGoogleApiClient, this);
     }
@@ -85,8 +82,7 @@ public class WearableDataHelper implements GoogleApiClient.ConnectionCallbacks, 
     @Override
     public void onConnected(Bundle connectionHint) {
         Log.v(TAG, "onConnected(): Successfully connected to Google API client");
-        addDataItemListener();
-        createMessage();
+        Wearable.DataApi.addListener(mGoogleApiClient, this);
     }
 
     @Override
@@ -138,26 +134,23 @@ public class WearableDataHelper implements GoogleApiClient.ConnectionCallbacks, 
         }
     }
 
-    public void createMessage() {
-//        if (mGoogleApiClient.isConnected()) {
+    public void createSyncMessage() {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     NodeApi.GetConnectedNodesResult nodes = Wearable.NodeApi.
                             getConnectedNodes(mGoogleApiClient).await();
                     for (Node node : nodes.getNodes()) {
-                        MessageApi.SendMessageResult result = Wearable.MessageApi.
-                                sendMessage(mGoogleApiClient, node.getId(), COUNT_PATH, "Hello World".
+                        MessageApi.SendMessageResult syncMessage = Wearable.MessageApi.
+                                sendMessage(mGoogleApiClient, node.getId(), COUNT_PATH, SYNC.
                                                 getBytes()).await();
-                        if(!result.getStatus().isSuccess()){
+                        if(!syncMessage.getStatus().isSuccess()){
                             Log.e("test", "error");
                         } else {
                             Log.i("test", "success!! sent to: " + node.getDisplayName());
                         }
                     }
-                    Log.v("Message", nodes.toString());
                 }
             }).start();
-//        }
     }
 }

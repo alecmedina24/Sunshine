@@ -58,6 +58,11 @@
                 <category android:name="com.google.android.wearable.watchface.category.WATCH_FACE" />
             </intent-filter>
         </service>
+        <service android:name="com.example.android.sunshine.app.WearableSyncService" >
+            <intent-filter>
+                <action android:name="com.example.android.sunshine.app.ACTION_SYNC" />
+            </intent-filter>
+        </service>
 
         <!-- <activity -->
         <!-- android:name="com.example.android.sunshine.app.MainActivity" -->

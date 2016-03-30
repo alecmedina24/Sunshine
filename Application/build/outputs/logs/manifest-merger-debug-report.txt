@@ -298,7 +298,7 @@ ADDED from AndroidManifest.xml:184:9
 		ADDED from AndroidManifest.xml:186:13
 	android:name
 		ADDED from AndroidManifest.xml:185:13
-service#com.example.android.sunshine.app.WearListenerService
+service#com.example.android.sunshine.app.AppDataHelper
 ADDED from AndroidManifest.xml:189:9
 	android:name
 		ADDED from AndroidManifest.xml:190:13

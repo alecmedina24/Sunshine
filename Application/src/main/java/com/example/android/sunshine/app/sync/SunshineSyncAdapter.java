@@ -180,6 +180,14 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
             }
             forecastJsonStr = buffer.toString();
             getWeatherDataFromJson(forecastJsonStr, locationQuery);
+
+            //Logs the time of the last web service call and sent to a shared prefs file
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            String lastSyncKey = context.getString(R.string.pref_last_sync);
+            SharedPreferences.Editor editor = prefs.edit();
+            editor.putLong(lastSyncKey, System.currentTimeMillis());
+            editor.commit();
+
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error ", e);
             // If the code didn't successfully get the weather data, there's no point in attempting

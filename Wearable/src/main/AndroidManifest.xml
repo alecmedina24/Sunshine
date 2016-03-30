@@ -51,6 +51,12 @@
             </intent-filter>
         </service>
 
+        <service android:name=".WearableSyncService">
+            <intent-filter>
+                <action android:name="com.example.android.sunshine.app.ACTION_SYNC"/>
+            </intent-filter>
+        </service>
+
         <!--<activity-->
         <!--android:name="com.example.android.sunshine.app.MainActivity"-->
         <!--android:label="@string/app_name">-->
