@@ -79,16 +79,6 @@ category#com.google.android.wearable.watchface.category.WATCH_FACE
 ADDED from AndroidManifest.xml:50:17
 	android:name
 		ADDED from AndroidManifest.xml:50:27
-service#com.example.android.sunshine.app.WearableSyncService
-ADDED from AndroidManifest.xml:54:9
-	android:name
-		ADDED from AndroidManifest.xml:54:18
-intent-filter#com.example.android.sunshine.app.ACTION_SYNC
-ADDED from AndroidManifest.xml:55:13
-action#com.example.android.sunshine.app.ACTION_SYNC
-ADDED from AndroidManifest.xml:56:17
-	android:name
-		ADDED from AndroidManifest.xml:56:25
 uses-sdk
 INJECTED from AndroidManifest.xml:0:0 reason: use-sdk injection requested
 MERGED from com.google.android.gms:play-services-wearable:8.4.0:18:5

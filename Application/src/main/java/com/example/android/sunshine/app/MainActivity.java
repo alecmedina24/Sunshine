@@ -217,7 +217,6 @@ public class MainActivity extends AppCompatActivity implements ForecastFragment.
     @Override
     protected void onPause() {
         super.onPause();
-//        appDataHelper.disconnect();
     }
 }
 

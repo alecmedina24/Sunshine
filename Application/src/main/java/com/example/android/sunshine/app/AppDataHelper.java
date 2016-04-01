@@ -3,14 +3,12 @@ package com.example.android.sunshine.app;
 import android.app.Activity;
 import android.content.Context;
 import android.content.IntentSender;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.bumptech.glide.Glide;
@@ -57,7 +55,6 @@ public class AppDataHelper extends WearableListenerService implements DataApi.Da
     private boolean mResolvingError = false;
     private Context context;
 
-
     public AppDataHelper() {
     }
 
@@ -65,7 +62,6 @@ public class AppDataHelper extends WearableListenerService implements DataApi.Da
     public void onCreate() {
         super.onCreate();
         context = this;
-        mGeneratorExecutor = new ScheduledThreadPoolExecutor(1);
         mGoogleApiClient = new GoogleApiClient.Builder(context)
                 .addApi(Wearable.API)
                 .addConnectionCallbacks(this)
@@ -74,17 +70,10 @@ public class AppDataHelper extends WearableListenerService implements DataApi.Da
         mGoogleApiClient.connect();
     }
 
-//    public void connect() {
-//        mGoogleApiClient.connect();
-//    }
-
-//    public void disconnect() {
-//        mGoogleApiClient.disconnect();
-//    }
-
     public void createDataItem() {
-        mDataItemGeneratorFuture = mGeneratorExecutor.scheduleWithFixedDelay(
-                new DataItemGenerator(), 1, 5, TimeUnit.SECONDS);
+        mGeneratorExecutor = new ScheduledThreadPoolExecutor(1);
+        mDataItemGeneratorFuture = mGeneratorExecutor.schedule(
+                new DataItemGenerator(), 1, TimeUnit.SECONDS);
     }
 
     private static Asset createAssetFromBitmap(Bitmap bitmap) {
@@ -107,12 +96,10 @@ public class AppDataHelper extends WearableListenerService implements DataApi.Da
 
     private class DataItemGenerator implements Runnable {
 
-        private int count;
         private final String[] NOTIFY_WEATHER_PROJECTION = new String[]{
                 WeatherContract.WeatherEntry.COLUMN_WEATHER_ID,
                 WeatherContract.WeatherEntry.COLUMN_MAX_TEMP,
                 WeatherContract.WeatherEntry.COLUMN_MIN_TEMP,
-                WeatherContract.WeatherEntry.COLUMN_SHORT_DESC
         };
         private static final int INDEX_WEATHER_ID = 0;
         private static final int INDEX_MAX_TEMP = 1;
@@ -120,11 +107,15 @@ public class AppDataHelper extends WearableListenerService implements DataApi.Da
 
         @Override
         public void run() {
-            String locationQuery = Utility.getPreferredLocation(context);
-            Uri weatherUri = WeatherContract.WeatherEntry.buildWeatherLocationWithDate(locationQuery,
-                    System.currentTimeMillis());
-            Cursor cursor = context.getContentResolver().query(weatherUri, NOTIFY_WEATHER_PROJECTION,
-                    null, null, null);
+            SunshineSyncAdapter.syncImmediately(getApplicationContext());
+            String sortOrder = WeatherContract.WeatherEntry.COLUMN_DATE + " ASC";
+
+            String locationSetting = Utility.getPreferredLocation(getApplicationContext());
+            Uri weatherForLocationUri = WeatherContract.WeatherEntry.buildWeatherLocationWithStartDate(
+                    locationSetting, WeatherContract.normalizeDate(System.currentTimeMillis()));
+            Cursor cursor = context.getContentResolver().query(weatherForLocationUri, NOTIFY_WEATHER_PROJECTION,
+                    null, null, sortOrder);
+
             cursor.moveToFirst();
             int weatherId = cursor.getInt(INDEX_WEATHER_ID);
             double high = cursor.getDouble(INDEX_MAX_TEMP);
@@ -149,7 +140,7 @@ public class AppDataHelper extends WearableListenerService implements DataApi.Da
             }
 
             PutDataMapRequest putDataMapRequest = PutDataMapRequest.create(COUNT_PATH);
-            putDataMapRequest.getDataMap().putInt("number", count++);
+            putDataMapRequest.getDataMap().putLong("time", System.currentTimeMillis());
             putDataMapRequest.getDataMap().putDouble("high", high);
             putDataMapRequest.getDataMap().putDouble("low", low);
 
@@ -185,14 +176,11 @@ public class AppDataHelper extends WearableListenerService implements DataApi.Da
         if (messageEvent.getPath().equals(COUNT_PATH)) {
             String message = new String(messageEvent.getData());
             if (message.equals(SYNC)) {
-                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-                String lastSyncKey = context.getString(R.string.pref_last_sync);
-                long lastSync = prefs.getLong(lastSyncKey, 0);
-                if (lastSync >= twoWeeks || lastSync == 0) {
-                    SunshineSyncAdapter.syncImmediately(this);
-                }
                 createDataItem();
             }
+//            if (message.equals("shutdown")) {
+//                shutdownThreadPoolExecutor(mGeneratorExecutor);
+//            }
             Log.v("App", "The message is " + message);
         }
     }

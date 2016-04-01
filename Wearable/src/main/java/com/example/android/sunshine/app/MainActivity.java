@@ -91,7 +91,6 @@ public class MainActivity extends CanvasWatchFaceService {
     public class Engine extends CanvasWatchFaceService.Engine implements WearableDataHelper.DataChangedCallback {
 
         final Handler mUpdateTimeHandler = new EngineHandler(this);
-        private static final long DAY_IN_MILLIS = 1000 * 60 * 60 * 24;
         boolean mRegisteredTimeZoneReceiver = false;
         Paint mBackgroundPaint;
         Paint mTextPaint;
@@ -117,7 +116,10 @@ public class MainActivity extends CanvasWatchFaceService {
         private View mLayout;
         private int mHeight;
         private int mWidth;
+        private String highTemp;
+        private String lowTemp;
         private final Point displaySize = new Point();
+        private long date;
 
         /**
          * Whether the display supports fewer bits for each color in ambient mode. When true, we
@@ -129,8 +131,10 @@ public class MainActivity extends CanvasWatchFaceService {
         public void onCreate(SurfaceHolder holder) {
             super.onCreate(holder);
 
-//            wearableDataHelper = new WearableDataHelper(getApplicationContext(), this);
-//            wearableDataHelper.connect();
+            wearableDataHelper = new WearableDataHelper(getBaseContext(), this);
+            wearableDataHelper.connect();
+
+            date = normalizeDate(System.currentTimeMillis());
 
             setWatchFaceStyle(new WatchFaceStyle.Builder(MainActivity.this)
                     .setCardPeekMode(WatchFaceStyle.PEEK_MODE_VARIABLE)
@@ -167,15 +171,15 @@ public class MainActivity extends CanvasWatchFaceService {
 
             mTime = new Time();
 
-//            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-//            String lastSyncKey = resources.getString(R.string.pref_last_wear_sync);
-//            long lastSync = prefs.getLong(lastSyncKey, 0);
-//            Log.v("Wearable", "last sync = " + lastSync);
+            wearableDataHelper.createSyncMessage();
+        }
 
-//            wearableDataHelper.createSyncMessage();
-            Intent intent = new Intent(getApplicationContext(), WearableSyncService.class);
-            intent.setAction(Intent.ACTION_SYNC);
-            startService(intent);
+        public long normalizeDate(long startDate) {
+            // normalize the start date to the beginning of the (UTC) day
+            Time time = new Time();
+            time.set(startDate);
+            int julianDay = Time.getJulianDay(startDate, time.gmtoff);
+            return time.setJulianDay(julianDay);
         }
 
         @Override
@@ -183,9 +187,7 @@ public class MainActivity extends CanvasWatchFaceService {
             mUpdateTimeHandler.removeMessages(MSG_UPDATE_TIME);
             wearableDataHelper.removeDataItemListener();
             wearableDataHelper.disconnect();
-//            Intent intent = new Intent(getApplicationContext(), WearableSyncService.class);
-//            intent.setAction(Intent.ACTION_SYNC);
-//            stopService(intent);
+//            MainActivity.this.unregisterReceiver(mDateChanged);
             super.onDestroy();
         }
 
@@ -304,6 +306,15 @@ public class MainActivity extends CanvasWatchFaceService {
             mTimeView.setText(text);
             String mDate = String.format("%tb %te, %tY", time, time, time);
             mDateView.setText(mDate);
+
+            //Set weather data
+            mHighView.setText(highTemp);
+            mLowView.setText(lowTemp);
+
+            if (normalizeDate(System.currentTimeMillis()) - date == 86400000) {
+                wearableDataHelper.createSyncMessage();
+                date = normalizeDate(System.currentTimeMillis());
+            }
         }
 
         /**
@@ -340,8 +351,8 @@ public class MainActivity extends CanvasWatchFaceService {
 
         @Override
         public void updateWeather(double high, double low) {
-            mHighView.setText(String.format(getResources().getString(R.string.format_temperature), high));
-            mLowView.setText(String.format(getResources().getString(R.string.format_temperature), low));
+            highTemp = String.format(getResources().getString(R.string.format_temperature), high);
+            lowTemp = String.format(getResources().getString(R.string.format_temperature), low);
         }
 
         @Override

@@ -67,12 +67,12 @@ public class WearableDataHelper implements GoogleApiClient.ConnectionCallbacks, 
         void updateImage(Bitmap weatherImage);
     }
 
-    public void connect() {
-        mGoogleApiClient.connect();
-    }
-
     public void disconnect() {
         mGoogleApiClient.disconnect();
+    }
+
+    public void connect() {
+        mGoogleApiClient.connect();
     }
 
     public void removeDataItemListener() {
