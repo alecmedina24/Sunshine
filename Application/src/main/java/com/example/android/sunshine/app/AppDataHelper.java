@@ -44,10 +44,8 @@ public class AppDataHelper extends WearableListenerService implements DataApi.Da
 
     private static final String TAG = AppDataHelper.class.getSimpleName();
     private static final String COUNT_PATH = "/count";
-    private static final String COUNT_KEY = "count";
     private static final int REQUEST_RESOLVE_ERROR = 1000;
     private static final String SYNC = "true";
-    private static final long twoWeeks = 1209600000;
 
     private GoogleApiClient mGoogleApiClient;
     private ScheduledExecutorService mGeneratorExecutor;
@@ -107,14 +105,12 @@ public class AppDataHelper extends WearableListenerService implements DataApi.Da
 
         @Override
         public void run() {
-            SunshineSyncAdapter.syncImmediately(getApplicationContext());
-            String sortOrder = WeatherContract.WeatherEntry.COLUMN_DATE + " ASC";
+            String locationQuery = Utility.getPreferredLocation(context);
+            Uri weatherUri = WeatherContract.WeatherEntry.buildWeatherLocationWithDate(locationQuery,
+                    System.currentTimeMillis());
 
-            String locationSetting = Utility.getPreferredLocation(getApplicationContext());
-            Uri weatherForLocationUri = WeatherContract.WeatherEntry.buildWeatherLocationWithStartDate(
-                    locationSetting, WeatherContract.normalizeDate(System.currentTimeMillis()));
-            Cursor cursor = context.getContentResolver().query(weatherForLocationUri, NOTIFY_WEATHER_PROJECTION,
-                    null, null, sortOrder);
+            Cursor cursor = context.getContentResolver().query(weatherUri, NOTIFY_WEATHER_PROJECTION,
+                    null, null, null);
 
             cursor.moveToFirst();
             int weatherId = cursor.getInt(INDEX_WEATHER_ID);
@@ -176,11 +172,9 @@ public class AppDataHelper extends WearableListenerService implements DataApi.Da
         if (messageEvent.getPath().equals(COUNT_PATH)) {
             String message = new String(messageEvent.getData());
             if (message.equals(SYNC)) {
+                SunshineSyncAdapter.syncImmediately(getApplicationContext());
                 createDataItem();
             }
-//            if (message.equals("shutdown")) {
-//                shutdownThreadPoolExecutor(mGeneratorExecutor);
-//            }
             Log.v("App", "The message is " + message);
         }
     }

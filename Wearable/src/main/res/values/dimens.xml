@@ -15,11 +15,7 @@
 -->
 
 <resources>
-    <dimen name="dots_spacing">15dp</dimen>
     <dimen name="center_temp">15dp</dimen>
     <dimen name="time_text_size">36sp</dimen>
-    <dimen name="time_top_padding">30dp</dimen>
     <dimen name="temp_text_size">30sp</dimen>
-    <dimen name="image_temp_spacing">50dp</dimen>
-    <dimen name="spacer_padding">15dp</dimen>
 </resources>

@@ -145,8 +145,8 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
             Uri builtUri = uriBuilder.appendQueryParameter(FORMAT_PARAM, format)
                     .appendQueryParameter(UNITS_PARAM, units)
                     .appendQueryParameter(DAYS_PARAM, Integer.toString(numDays))
-                     //TODO: 2/16/16 add openWeatherMapApi to buildConfig
-                    .appendQueryParameter(APPID_PARAM, "8a30d9b9dc8be253a5082136e1d96acf")
+                     //TODO: Add/Remove API key
+                    .appendQueryParameter(APPID_PARAM, "")
                     .build();
 
             URL url = new URL(builtUri.toString());
@@ -180,14 +180,6 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
             }
             forecastJsonStr = buffer.toString();
             getWeatherDataFromJson(forecastJsonStr, locationQuery);
-
-            //Logs the time of the last web service call and sent to a shared prefs file
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-            String lastSyncKey = context.getString(R.string.pref_last_sync);
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putLong(lastSyncKey, System.currentTimeMillis());
-            editor.commit();
-
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error ", e);
             // If the code didn't successfully get the weather data, there's no point in attempting

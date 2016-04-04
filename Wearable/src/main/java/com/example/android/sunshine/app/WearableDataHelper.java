@@ -51,7 +51,6 @@ public class WearableDataHelper implements GoogleApiClient.ConnectionCallbacks, 
     private double high;
     private double low;
     private DataChangedCallback dataChangedCallback;
-//    private InputStream assetInputStream;
 
     public WearableDataHelper(Context context, DataChangedCallback dataChangedCallback) {
         this.dataChangedCallback = dataChangedCallback;
@@ -115,9 +114,6 @@ public class WearableDataHelper implements GoogleApiClient.ConnectionCallbacks, 
 
     @Override
     public void onDataChanged(DataEventBuffer dataEvents) {
-        Log.v(TAG, "onDataChanged: " + dataEvents);
-
-        // Loop through the events and send a message back to the node that created the data item.
         for (DataEvent event : dataEvents) {
             Uri uri = event.getDataItem().getUri();
             String path = uri.getPath();

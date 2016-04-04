@@ -12,15 +12,15 @@ ADDED from AndroidManifest.xml:16:1
 		INJECTED from AndroidManifest.xml:0:0
 		INJECTED from AndroidManifest.xml:0:0
 uses-feature#android.hardware.type.watch
-ADDED from AndroidManifest.xml:22:5
+ADDED from AndroidManifest.xml:19:5
 	android:name
-		ADDED from AndroidManifest.xml:22:19
+		ADDED from AndroidManifest.xml:19:19
 uses-permission#android.permission.WAKE_LOCK
-ADDED from AndroidManifest.xml:23:5
+ADDED from AndroidManifest.xml:20:5
 	android:name
-		ADDED from AndroidManifest.xml:23:22
+		ADDED from AndroidManifest.xml:20:22
 application
-ADDED from AndroidManifest.xml:25:5
+ADDED from AndroidManifest.xml:22:5
 MERGED from com.google.android.gms:play-services-wearable:8.4.0:19:5
 MERGED from com.google.android.gms:play-services-basement:8.4.0:20:5
 MERGED from com.android.support:support-v4:23.1.1:22:5
@@ -31,54 +31,54 @@ MERGED from com.android.support:recyclerview-v7:22.0.0:22:5
 MERGED from com.android.support:support-v4:23.1.1:22:5
 MERGED from com.android.support:support-v4:23.1.1:22:5
 	android:label
-		ADDED from AndroidManifest.xml:28:9
+		ADDED from AndroidManifest.xml:25:9
 	android:allowBackup
-		ADDED from AndroidManifest.xml:26:9
+		ADDED from AndroidManifest.xml:23:9
 	android:icon
-		ADDED from AndroidManifest.xml:27:9
+		ADDED from AndroidManifest.xml:24:9
 meta-data#com.google.android.gms.version
-ADDED from AndroidManifest.xml:30:9
+ADDED from AndroidManifest.xml:27:9
 MERGED from com.google.android.gms:play-services-basement:8.4.0:21:9
 	android:name
-		ADDED from AndroidManifest.xml:31:13
+		ADDED from AndroidManifest.xml:28:13
 	android:value
-		ADDED from AndroidManifest.xml:32:13
-service#com.example.android.sunshine.app.MainActivity
-ADDED from AndroidManifest.xml:34:9
+		ADDED from AndroidManifest.xml:29:13
+service#com.example.android.sunshine.app.WatchFaceService
+ADDED from AndroidManifest.xml:31:9
 	android:label
-		ADDED from AndroidManifest.xml:36:13
+		ADDED from AndroidManifest.xml:33:13
 	android:permission
-		ADDED from AndroidManifest.xml:37:13
+		ADDED from AndroidManifest.xml:34:13
 	android:name
-		ADDED from AndroidManifest.xml:35:13
+		ADDED from AndroidManifest.xml:32:13
 meta-data#android.service.wallpaper
+ADDED from AndroidManifest.xml:35:13
+	android:resource
+		ADDED from AndroidManifest.xml:37:17
+	android:name
+		ADDED from AndroidManifest.xml:36:17
+meta-data#com.google.android.wearable.watchface.preview
 ADDED from AndroidManifest.xml:38:13
 	android:resource
 		ADDED from AndroidManifest.xml:40:17
 	android:name
 		ADDED from AndroidManifest.xml:39:17
-meta-data#com.google.android.wearable.watchface.preview
+meta-data#com.google.android.wearable.watchface.preview_circular
 ADDED from AndroidManifest.xml:41:13
 	android:resource
 		ADDED from AndroidManifest.xml:43:17
 	android:name
 		ADDED from AndroidManifest.xml:42:17
-meta-data#com.google.android.wearable.watchface.preview_circular
-ADDED from AndroidManifest.xml:44:13
-	android:resource
-		ADDED from AndroidManifest.xml:46:17
-	android:name
-		ADDED from AndroidManifest.xml:45:17
 intent-filter#android.service.wallpaper.WallpaperService+com.google.android.wearable.watchface.category.WATCH_FACE
-ADDED from AndroidManifest.xml:48:13
+ADDED from AndroidManifest.xml:45:13
 action#android.service.wallpaper.WallpaperService
-ADDED from AndroidManifest.xml:49:17
+ADDED from AndroidManifest.xml:46:17
 	android:name
-		ADDED from AndroidManifest.xml:49:25
+		ADDED from AndroidManifest.xml:46:25
 category#com.google.android.wearable.watchface.category.WATCH_FACE
-ADDED from AndroidManifest.xml:50:17
+ADDED from AndroidManifest.xml:47:17
 	android:name
-		ADDED from AndroidManifest.xml:50:27
+		ADDED from AndroidManifest.xml:47:27
 uses-sdk
 INJECTED from AndroidManifest.xml:0:0 reason: use-sdk injection requested
 MERGED from com.google.android.gms:play-services-wearable:8.4.0:18:5

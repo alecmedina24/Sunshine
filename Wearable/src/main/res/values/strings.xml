@@ -15,17 +15,12 @@
 -->
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name">Data Layer Sample Wearable App</string>
-    <string name="intro">Waiting for data to arrive\u2026</string>
-    <string name="capability_2_notification">Capability 2</string>
-    <string name="capabilities_1_and_2_notification">Capabilities 1 and 2</string>
-    <string name="no_device">No device provides the requested capabilities</string>
-    <string name="connected_nodes">Nodes: %1$s</string>
-    <string name="my_digital_name">My Sunshine Digital</string>
+    <string name="watch_face_name">My Sunshine Digital</string>
 
     <!-- Strings related to last sync to wearable -->
     <string name="pref_last_wear_sync">last_sync</string>
 
+    <!-- String related to formatted temperature-->
     <string name="format_temperature"><xliff:g id="temp">%1.0f</xliff:g>\u00B0</string>
 
 </resources>
