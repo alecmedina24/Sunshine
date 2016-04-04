@@ -156,7 +156,6 @@ public class WatchFaceService extends CanvasWatchFaceService {
             mLowView = (TextView) mLayout.findViewById(R.id.low_temp);
             mWeatherImageHolder = (ImageView) mLayout.findViewById(R.id.weather_image);
             mBackground = (LinearLayout) mLayout.findViewById(R.id.background);
-
             mTime = new Time();
 
             //Assume empty state on creation so sync
